@@ -35,8 +35,10 @@ function checkEmail(input) {
 // Check required fields
 function checkRequired(inputArr) {
   inputArr.forEach(function (input) {
-    if (input.value.trim() === '') {
-      showError(input, `${getFieldName(input)} is required`);
+    if (input.value.trim() === '' && input !== password2) {
+      showError(input, `${getFieldName(input)} is required.`);
+    } else if (input.value.trim() === '' && input === password2) {
+      showError(input, 'Passwords do not match.');
     } else {
       showSuccess(input);
     }
@@ -62,6 +64,13 @@ function checkLength(input, min, max) {
   }
 }
 
+// Check passwords match
+function checkPasswordsMatch(input1, input2) {
+  if (input1.value !== input2.value) {
+    showError(input2, 'Passwords do not match.');
+  }
+}
+
 // Get field name
 function getFieldName(input) {
   return input.id.charAt(0).toUpperCase() + input.id.slice(1);
@@ -76,4 +85,5 @@ form.addEventListener('submit', e => {
   checkLength(username, 3, 15);
   checkLength(password, 6, 25);
   checkEmail(email);
+  checkPasswordsMatch(password, password2);
 });
