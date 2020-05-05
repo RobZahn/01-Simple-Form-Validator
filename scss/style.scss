@@ -57,6 +57,10 @@ body {
           outline: 0;
           border-color: #777;
         }
+
+        &::placeholder {
+          color: #bbb;
+        }
       }
 
       &.success input {
